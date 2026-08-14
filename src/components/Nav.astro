@@ -1,0 +1,54 @@
+---
+---
+<header class="nav">
+  <div class="container">
+    <div class="inner nav-inner">
+      <a class="wordmark" href="#top">Jonathan Northwood</a>
+      <nav class="links" aria-label="Page navigation">
+        <a href="#expertise">Expertise</a>
+        <a href="#projects">Projects</a>
+        <a href="#coming-soon">Coming soon</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    background: var(--color-surface-primary);
+    border-bottom: 1px solid var(--color-border-tertiary);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 4rem;
+  }
+  .wordmark {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    color: var(--color-content-primary);
+    text-decoration: none;
+  }
+  .links {
+    display: flex;
+    gap: 1.5rem;
+  }
+  .links a {
+    font-size: 0.875rem;
+    color: var(--color-content-secondary);
+    text-decoration: none;
+    text-underline-offset: 0.25rem;
+    transition: color 0.3s;
+  }
+  .links a:hover {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+  @media (max-width: 640px) {
+    .links { display: none; }
+  }
+</style>

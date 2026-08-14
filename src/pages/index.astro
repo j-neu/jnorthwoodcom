@@ -1,6 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
 ---
-<BaseLayout title="Jonathan Northwood" description="Temporary placeholder page.">
-  <h1>Placeholder</h1>
+<BaseLayout
+  title="Jonathan Northwood"
+  description="Jonathan Northwood — research and practical methods on cognitive dismantling, procrastination, and making and breaking habits."
+>
+  <Nav />
+  <main id="top">
+    <Hero />
+  </main>
 </BaseLayout>

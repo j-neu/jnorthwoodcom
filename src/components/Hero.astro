@@ -1,0 +1,61 @@
+---
+import { getCollection, render } from 'astro:content';
+
+const entry = (await getCollection('site')).find((e) => e.id === 'hero')!;
+const { headline, buttons } = entry.data;
+const { Content } = await render(entry);
+---
+<section id="top" class="hero">
+  <div class="container">
+    <div class="inner hero-inner">
+      <h1 class="display" data-reveal>{headline}</h1>
+      <div class="statement" data-reveal style="--delay:150ms">
+        <Content />
+      </div>
+      <div class="actions" data-reveal style="--delay:300ms">
+        {buttons?.map((b) => (
+          <a
+            class:list={['btn', `btn--${b.variant ?? 'inverted'}`]}
+            href={b.href}
+          >
+            {b.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    background: linear-gradient(180deg, #292a2e, #464669);
+    color: var(--color-content-inverted);
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    padding: 5rem 0;
+  }
+  .hero-inner { max-width: 62rem; }
+  .display {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(3rem, 8vw, 6rem);
+    line-height: 1.05;
+    margin: 0 0 1.5rem;
+  }
+  .statement {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    line-height: 1.4;
+    max-width: 32rem;
+    color: #d7d7dc;
+  }
+  .statement :global(p) { margin: 0; }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+</style>
