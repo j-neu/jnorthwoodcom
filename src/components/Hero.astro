@@ -5,7 +5,7 @@ const entry = (await getCollection('site')).find((e) => e.id === 'hero')!;
 const { headline, buttons } = entry.data;
 const { Content } = await render(entry);
 ---
-<section id="top" class="hero">
+<section class="hero">
   <div class="container">
     <div class="inner hero-inner">
       <h1 class="display" data-reveal>{headline}</h1>
