@@ -2,12 +2,18 @@
 import { getCollection } from 'astro:content';
 
 const entry = (await getCollection('site')).find((e) => e.id === 'footer')!;
-const { note, email } = entry.data;
+const { note, email, quote, quoteAuthor } = entry.data;
 const year = new Date().getFullYear();
 ---
 <footer class="footer">
   <div class="container">
     <div class="inner footer-inner">
+      {quote && (
+        <blockquote class="quote">
+          “{quote}”
+          {quoteAuthor && <cite>— {quoteAuthor}</cite>}
+        </blockquote>
+      )}
       {note && <p class="note">{note}</p>}
       <p class="email">
         <a href={`mailto:${email}`}>{email}</a>
@@ -27,6 +33,26 @@ const year = new Date().getFullYear();
     display: flex;
     flex-direction: column;
     gap: 1rem;
+  }
+  .quote {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    line-height: 1.35;
+    max-width: 24.375rem;
+    margin: 0 0 5.25rem;
+  }
+  .quote::after {
+    content: '|';
+    display: inline-block;
+    animation: caret-blink 1s infinite;
+  }
+  .quote cite {
+    display: block;
+    margin-top: 1rem;
+    font-size: 1rem;
+    font-style: normal;
+    color: #8f8f89;
   }
   .note { color: #8f8f89; margin: 0; max-width: 30rem; }
   .email { margin: 0; }

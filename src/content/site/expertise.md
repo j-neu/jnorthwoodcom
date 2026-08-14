@@ -1,7 +1,16 @@
 ---
 title: Expertise
 eyebrow: Areas of expertise
-intro: Research and practical methods applied to the mechanics of behaviour — how avoidance compounds, and how deliberate restructuring dissolves it.
+rotator:
+  firstPart: Expert on
+  secondPart: .
+  words:
+    - word: procrastination
+      color: '#EB5B55'
+    - word: cognitive dismantling
+      color: '#2173BE'
+    - word: making and breaking habits
+      color: '#529A6A'
 items:
   - name: Cognitive dismantling
     body: A systematic method for breaking any habit by taking it apart step by step — identifying its triggers, rewards, and feedback loops, and disassembling each in turn.

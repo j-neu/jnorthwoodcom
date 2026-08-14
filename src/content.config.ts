@@ -28,6 +28,20 @@ const site = defineCollection({
         })
       )
       .optional(),
+    rotator: z
+      .object({
+        firstPart: z.string(),
+        secondPart: z.string(),
+        words: z.array(
+          z.object({
+            word: z.string(),
+            color: z.string(),
+          })
+        ),
+      })
+      .optional(),
+    quote: z.string().optional(),
+    quoteAuthor: z.string().optional(),
     projects: z
       .array(
         z.object({

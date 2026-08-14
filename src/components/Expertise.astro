@@ -1,20 +1,28 @@
 ---
 import { getCollection } from 'astro:content';
+import Wave from './Wave.astro';
 
 const entry = (await getCollection('site')).find((e) => e.id === 'expertise')!;
-const { eyebrow, intro, items } = entry.data;
+const { eyebrow, items, rotator } = entry.data;
 ---
-<section id="expertise" class="expertise">
+<section id="expertise" class="expertise pinned">
+  <Wave fill="#e5e5e1" />
   <div class="container">
-    <div class="inner">
+    <div class="inner expertise-inner">
       {eyebrow && <p class="eyebrow" data-reveal>{eyebrow}</p>}
-      {intro && <p class="intro" data-reveal style="--delay:120ms">{intro}</p>}
-      <div class="grid">
+      {rotator && (
+        <p class="sentence" data-rotator data-words={JSON.stringify(rotator.words)} data-reveal>
+          {rotator.firstPart}{' '}
+          <span class="rotator-word" style={`color:${rotator.words[0].color}`}>
+            {rotator.words[0].word}
+          </span>{' '}
+          {rotator.secondPart}
+        </p>
+      )}      <div class="paragraphs">
         {items?.map((item, i) => (
-          <article class="card" data-reveal style={`--delay:${i * 150}ms`}>
-            <h2 class="card-title">{item.name}</h2>
-            <p class="card-body">{item.body}</p>
-          </article>
+          <p class="paragraph" data-reveal style={`--delay:${i * 150}ms`}>
+            <strong>{item.name}.</strong> {item.body}
+          </p>
         ))}
       </div>
     </div>
@@ -22,7 +30,11 @@ const { eyebrow, intro, items } = entry.data;
 </section>
 
 <style>
-  .expertise { padding: 8rem 0; }
+  .expertise {
+    background: #e5e5e1;
+    color: var(--color-content-primary);
+    padding: 6rem 0 10rem;
+  }
   .eyebrow {
     text-transform: uppercase;
     font-size: 0.875rem;
@@ -31,33 +43,43 @@ const { eyebrow, intro, items } = entry.data;
     color: var(--color-content-secondary);
     margin: 0 0 1rem;
   }
-  .intro {
+  .sentence {
     font-family: var(--font-display);
     font-weight: 300;
-    font-size: clamp(1.75rem, 4vw, 2.75rem);
-    line-height: 1.25;
-    max-width: 45rem;
-    margin: 0 0 4rem;
+    font-size: 4rem;
+    line-height: 1.05;
+    max-width: 24rem;
+    margin: 0 0 12.5rem;
   }
-  .grid {
+  @media (min-width: 768px) {
+    .sentence {
+      font-size: 7vw;
+      max-width: none;
+      margin: 0 0 6rem;
+    }
+  }
+  @media (min-width: 1200px) {
+    .sentence { font-size: 5.25rem; }
+  }
+  .rotator-word {
+    transition: opacity 0.25s linear;
+  }
+  .rotator-word--fade {
+    opacity: 0;
+  }
+  .paragraphs {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-    gap: 2rem;
+    gap: 3.75rem;
   }
-  .card {
-    background: var(--color-surface-light);
-    border: 1px solid var(--color-border-tertiary);
-    border-radius: 1rem;
-    padding: 2rem;
-  }
-  .card-title {
+  .paragraph {
     font-family: var(--font-display);
-    font-weight: 400;
-    font-size: 1.75rem;
-    margin: 0 0 0.75rem;
-  }
-  .card-body {
-    color: var(--color-content-secondary);
+    font-weight: 300;
+    font-size: 2.5rem;
+    line-height: 1.2;
     margin: 0;
   }
+  @media (min-width: 768px) {
+    .paragraph { font-size: 3.75rem; width: 90%; }
+  }
+  .paragraph :global(strong) { font-weight: 500; }
 </style>

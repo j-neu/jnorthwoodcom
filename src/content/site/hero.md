@@ -1,6 +1,6 @@
 ---
 title: Hero
-headline: Jonathan Northwood
+headline: Understanding the resisting mind.
 buttons:
   - label: Explore the projects
     href: '#projects'
@@ -9,4 +9,4 @@ buttons:
     href: '#coming-soon'
     variant: inverted
 ---
-An expert on cognitive dismantling, procrastination, and making and breaking habits.
+Jonathan Northwood studies cognitive dismantling, procrastination, and how habits are made and broken.

@@ -2,12 +2,15 @@
 import { getCollection } from 'astro:content';
 
 const entry = (await getCollection('site')).find((e) => e.id === 'projects')!;
-const { eyebrow, projects } = entry.data;
+const { eyebrow, headline, projects } = entry.data;
 ---
-<section id="projects" class="projects">
+<section id="projects" class="projects pinned">
   <div class="container">
-    <div class="inner">
+    <div class="inner projects-inner">
       {eyebrow && <p class="eyebrow" data-reveal>{eyebrow}</p>}
+      <h2 class="headline" data-reveal style="--delay:120ms">
+        {headline}
+      </h2>
       <div class="list">
         {projects?.map((p, i) => (
           <a
@@ -18,8 +21,8 @@ const { eyebrow, projects } = entry.data;
             data-reveal
             style={`--delay:${i * 150}ms`}
           >
-            <div>
-              <h2 class="card-title">{p.name}</h2>
+            <div class="card-text">
+              <h3 class="card-title">{p.name}</h3>
               <p class="tagline">{p.tagline}</p>
               <p class="body">{p.description}</p>
             </div>
@@ -33,9 +36,12 @@ const { eyebrow, projects } = entry.data;
 
 <style>
   .projects {
-    background: var(--color-surface-inverted);
+    background: linear-gradient(180deg, #292a2e, #464669);
     color: var(--color-content-inverted);
-    padding: 8rem 0;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    padding: 6rem 0;
   }
   .eyebrow {
     text-transform: uppercase;
@@ -43,12 +49,24 @@ const { eyebrow, projects } = entry.data;
     font-weight: 700;
     letter-spacing: 0.08em;
     color: #8f8f89;
-    margin: 0 0 3rem;
+    margin: 0 0 1.5rem;
+  }
+  .headline {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    line-height: 1.2;
+    max-width: 21.625rem;
+    margin: 0 0 4rem;
+  }
+  @media (min-width: 768px) {
+    .headline { max-width: none; }
   }
   .list { display: grid; gap: 1.5rem; }
   .card {
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
     gap: 2rem;
     background: #1d1e20;
     border: 1px solid #32332f;

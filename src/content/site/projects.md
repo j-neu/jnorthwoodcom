@@ -1,6 +1,7 @@
 ---
 title: Projects
 eyebrow: Projects
+headline: Practical tools, built on the method.
 projects:
   - name: Procrastitype
     url: https://procrastitype.jnorthwood.com

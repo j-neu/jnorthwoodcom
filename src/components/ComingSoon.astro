@@ -1,24 +1,41 @@
 ---
 import { getCollection, render } from 'astro:content';
+import Wave from './Wave.astro';
 
-const entry = (await getCollection('site')).find((e) => e.id === 'coming-soon')!;
+const entries = await getCollection('site');
+const entry = entries.find((e) => e.id === 'coming-soon')!;
 const { eyebrow, name } = entry.data;
 const { Content } = await render(entry);
+const footerEntry = entries.find((e) => e.id === 'footer')!;
+const email = footerEntry.data.email;
 ---
-<section id="coming-soon" class="coming">
+<section id="coming-soon" class="coming pinned">
+  <Wave fill="#f8f8f7" />
   <div class="container">
-    <div class="inner">
+    <div class="inner coming-inner">
       {eyebrow && <p class="eyebrow" data-reveal>{eyebrow}</p>}
-      <h2 class="title" data-reveal>{name}</h2>
-      <div class="prose" data-reveal style="--delay:120ms">
+      <h2 class="title" data-reveal style="--delay:120ms">{name}</h2>
+      <div class="prose" data-reveal style="--delay:200ms">
         <Content />
+      </div>
+      <div class="cta" data-reveal style="--delay:300ms">
+        <a class="btn btn--primary" href={`mailto:${email}`}>
+          Be notified
+        </a>
       </div>
     </div>
   </div>
 </section>
 
 <style>
-  .coming { padding: 8rem 0; }
+  .coming {
+    background: var(--color-surface-light);
+    color: var(--color-content-primary);
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    padding: 6rem 0;
+  }
   .eyebrow {
     text-transform: uppercase;
     font-size: 0.875rem;
@@ -41,5 +58,6 @@ const { Content } = await render(entry);
     max-width: 40rem;
     color: var(--color-content-secondary);
   }
-  .prose :global(p) { margin: 0; }
+  .prose :global(p) { margin: 0 0 2.5rem; }
+  .cta { display: flex; }
 </style>

@@ -1,0 +1,26 @@
+---
+interface Props {
+  fill: string;
+}
+
+const { fill } = Astro.props;
+---
+<div class="wave" aria-hidden="true">
+  <svg viewBox="0 0 1532 103" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M0,50 C150,95 350,100 550,75 C750,50 900,30 1100,45 C1250,55 1400,50 1532,60 L1532,103 L0,103 Z"
+      fill={fill}
+    />
+  </svg>
+</div>
+
+<style>
+  .wave svg {
+    height: 6rem;
+  }
+  @media (min-width: 768px) {
+    .wave svg {
+      height: 8rem;
+    }
+  }
+</style>
