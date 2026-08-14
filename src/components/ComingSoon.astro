@@ -1,0 +1,45 @@
+---
+import { getCollection, render } from 'astro:content';
+
+const entry = (await getCollection('site')).find((e) => e.id === 'coming-soon')!;
+const { eyebrow, name } = entry.data;
+const { Content } = await render(entry);
+---
+<section id="coming-soon" class="coming">
+  <div class="container">
+    <div class="inner">
+      {eyebrow && <p class="eyebrow" data-reveal>{eyebrow}</p>}
+      <h2 class="title" data-reveal>{name}</h2>
+      <div class="prose" data-reveal style="--delay:120ms">
+        <Content />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .coming { padding: 8rem 0; }
+  .eyebrow {
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--color-content-secondary);
+    margin: 0 0 1rem;
+  }
+  .title {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    margin: 0 0 1.5rem;
+  }
+  .prose {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    line-height: 1.45;
+    max-width: 40rem;
+    color: var(--color-content-secondary);
+  }
+  .prose :global(p) { margin: 0; }
+</style>
