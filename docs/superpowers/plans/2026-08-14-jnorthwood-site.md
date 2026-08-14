@@ -530,11 +530,11 @@ git commit -m "feat: add markdown content collection with all site prose"
 
 ```astro
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 
 const entry = (await getCollection('site')).find((e) => e.id === 'hero')!;
 const { headline, buttons } = entry.data;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 ---
 <section id="top" class="hero">
   <div class="container">
@@ -843,11 +843,11 @@ git commit -m "feat: add expertise and projects sections rendered from markdown"
 
 ```astro
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 
 const entry = (await getCollection('site')).find((e) => e.id === 'coming-soon')!;
 const { eyebrow, name } = entry.data;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 ---
 <section id="coming-soon" class="coming">
   <div class="container">
@@ -1081,3 +1081,4 @@ git commit -m "docs: add README and Cloudflare Pages config"
 1. **Spec coverage:** Every section of the spec maps to a task — scaffold/design tokens (Task 1), content model with five markdown files (Task 2), nav/hero (Task 3), expertise/projects (Task 4), coming soon/footer (Task 5), deployment config/README (Task 6). Acceptance criteria covered: prose editable via markdown (Task 2 + components reading the collection), both project URLs rendered (Task 4), coming soon present (Task 5), contact email in footer (Task 5), Cloudflare Pages config (Task 6), git repo already initialized.
 2. **Placeholder scan:** The only placeholder is the Task 1 temporary `index.astro`, explicitly replaced in Task 3. No TBD/TODO.
 3. **Type consistency:** `buttons[].variant` uses `'primary' | 'secondary' | 'inverted'` in both the schema (Task 2) and the `class:list` template literal in Hero (Task 3). Entry ids `hero`, `expertise`, `projects`, `coming-soon`, `footer` match the filenames in Task 2 and the `find((e) => e.id === ...)` lookups in Tasks 3–5. `BaseLayout` props `title`/`description` match usage in all `index.astro` versions.
+
