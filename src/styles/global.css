@@ -1,0 +1,82 @@
+:root {
+  --color-surface-primary: #f4f4f2;
+  --color-surface-light: #f8f8f7;
+  --color-surface-dim: #ecece9;
+  --color-surface-inverted: #020203;
+  --color-surface-hero: #292a2e;
+  --color-surface-footer: #0c0d0d;
+  --color-content-primary: #282825;
+  --color-content-secondary: #64645e;
+  --color-content-inverted: #fbfbf9;
+  --color-border-primary: #282825;
+  --color-border-tertiary: #c5c5ba;
+  --color-accent: #2173be;
+  --radius-m: 12px;
+  --spacing-m: 0.75rem;
+  --spacing-l: 1rem;
+  --container-max: 82rem;
+  --font-display: 'Newsreader Variable', Georgia, 'Times New Roman', serif;
+  --font-body: 'Manrope Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--color-surface-primary);
+  color: var(--color-content-primary);
+  font-family: var(--font-body);
+  font-size: 100%;
+  line-height: 1.5;
+}
+
+.container {
+  width: 100%;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+}
+@media (min-width: 720px) { .container { padding: 0 2.5rem; } }
+@media (min-width: 1024px) { .container { padding: 0 5rem; } }
+
+.inner {
+  position: relative;
+  max-width: var(--container-max);
+  margin: 0 auto;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-m) var(--spacing-l);
+  border-radius: var(--radius-m);
+  border: 1px solid transparent;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.125rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.3s, background-color 0.3s, border-color 0.3s;
+}
+.btn--primary { background: #0c0d0d; color: #fff; }
+.btn--primary:hover { background: #55565e; }
+.btn--secondary { background: transparent; border-color: var(--color-border-primary); color: var(--color-content-primary); }
+.btn--secondary:hover { background: var(--color-surface-dim); }
+.btn--inverted { background: #fff; color: #0c0d0d; }
+.btn--inverted:hover { background: #ecece9; }
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(2.5rem);
+  transition: opacity 0.4s linear, transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  transition-delay: var(--delay, 0ms);
+}
+[data-reveal].is-revealed { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] { opacity: 1; transform: none; transition: none; }
+}
