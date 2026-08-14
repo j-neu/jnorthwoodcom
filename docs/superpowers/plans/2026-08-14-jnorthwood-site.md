@@ -195,7 +195,7 @@ const { title, description } = Astro.props;
   </head>
   <body>
     <slot />
-    <script src="/scripts/reveal.js"></script>
+    <script is:inline src="/scripts/reveal.js"></script>
   </body>
 </html>
 ```
