@@ -23,18 +23,37 @@
     };
     apply(0);
 
+    const stabilizeHeight = () => {
+      let max = 0;
+      const first = wordEl.textContent;
+      words.forEach((w) => {
+        wordEl.textContent = w.word;
+        max = Math.max(max, el.offsetHeight);
+      });
+      wordEl.textContent = first;
+      el.style.minHeight = max + 'px';
+    };
     if (reduceMotion) return;
+    stabilizeHeight();
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(stabilizeHeight);
+    }
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(stabilizeHeight, 100);
+    });
 
     let last = Date.now();
     const frame = () => {
-      if (Date.now() - last >= 1000) {
+      if (Date.now() - last >= 3000) {
         last = Date.now();
         wordEl.classList.add('rotator-word--fade');
         setTimeout(() => {
           i = (i + 1) % words.length;
           apply(i);
           wordEl.classList.remove('rotator-word--fade');
-        }, 250);
+        }, 750);
       }
       requestAnimationFrame(frame);
     };
